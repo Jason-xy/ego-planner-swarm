@@ -11,8 +11,8 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository universe && \
     apt-get install -y curl && \
-    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
+    sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
+    curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
     apt-get update && \
     apt-get install -y \
     build-essential \
@@ -43,7 +43,7 @@ RUN apt-get update && \
     qt5-default \
     zlib1g-dev \
     pkg-config \
-    ros-foxy-desktop \
+    ros-noetic-desktop-full \
     python3-argcomplete \
     ros-dev-tools \
     python-dev \
@@ -55,6 +55,12 @@ RUN apt-get update && \
     python3-numpy \
     python3-py \
     python3-pytest \
+    python3-pip \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-wstool \
+    build-essential \
     libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev && \
     apt-get clean
