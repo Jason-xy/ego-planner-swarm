@@ -1,6 +1,6 @@
 #!/bin/bash
 script_dir=$(cd $(dirname $0);pwd)
-docker run --gpus all -it \
+docker run --rm -it \
 		--name ego_ros1 \
 		--privileged \
 		--network host \
